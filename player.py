@@ -1,11 +1,16 @@
 import pygame
 
-class Player:
 
-    def __init__(self, surface, xloc = 400, yloc = 300):
-        self.surface = surface
+class Player(pygame.sprite.Sprite):
+
+    def __init__(self, xloc = 400, yloc = 300):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((800, 800), pygame.SRCALPHA)
+        #self.image.fill()
         self.xloc = xloc
         self.yloc = yloc
 
-    def drawPlayer(self):
-        player = pygame.image.load('resources/player_left.png')
+    def drawplayer(self):
+        self.image.fill(pygame.SRCALPHA)
+        pygame.draw.circle(self.image, (0, 0, 255), (self.xloc, self.yloc), 10)
+        return self.image
