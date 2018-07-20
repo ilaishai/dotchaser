@@ -16,7 +16,6 @@ class Player(pygame.sprite.Sprite):
 
     def maketail(self):
         self.tailarray.append((self.xloc, self.yloc))
-        print(self.tailarray)
         if len(self.tailarray) > self.tail + 2:
             self.tailarray.pop(0)
         return self.tailarray
