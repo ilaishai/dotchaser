@@ -12,6 +12,14 @@ class Player(pygame.sprite.Sprite):
         self.score = score
         self.tail = tail
         self.face = face
+        self.tailarray = []
+
+    def maketail(self):
+        self.tailarray.append((self.xloc, self.yloc))
+        print(self.tailarray)
+        if len(self.tailarray) > self.tail + 2:
+            self.tailarray.pop(0)
+        return self.tailarray
 
     def drawplayer(self):
         self.image.fill(pygame.SRCALPHA)

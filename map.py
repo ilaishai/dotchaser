@@ -29,6 +29,14 @@ class Block:
             pygame.draw.rect(self.surface, (255, 0, 0),
                              pygame.rect.Rect(self.xcoord, self.ycoord, 10, 10))
 
+        if self.type == "t":
+            pygame.draw.rect(self.surface, (200, 200, 255),
+                             pygame.rect.Rect(self.xcoord, self.ycoord, 10, 10))
+
+        if self.type == "g":
+            pygame.draw.rect(self.surface, (200, 100, 100),
+                             pygame.rect.Rect(self.xcoord, self.ycoord, 10, 10))
+
 class Grid:
 
     def __init__(self, surface):
@@ -52,12 +60,20 @@ class Grid:
                             self.gridmap[len(self.gridmap) - 1][totalrow].drawBlock()
                             totalrow += 1
                 count += 1
-        self.set_room()
+        self.set_obj()
 
-    def set_room(self):
+    def set_obj(self):
         import random
         self.objective = (random.randint(2, 78), random.randint(2, 78))
+        while self.gridmap[self.objective[0]][self.objective[1]].type != "w":
+            self.objective = (random.randint(2, 78), random.randint(2, 78))
         self.gridmap[self.objective[0]][self.objective[1]].type = "r"
+
+    def draw_tail(self, tailarray):
+        if len(tailarray) > 0:
+            for cell in reversed(tailarray[:-1]):
+                self.gridmap[cell[0]][cell[1]].type = "t"
+                self.gridmap[tailarray[0][0]][tailarray[0][1]].type = "w"
 
     def draw(self):
         for i in range(len(self.gridmap)):

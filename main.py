@@ -42,11 +42,24 @@ while True:
     if p1.face == "rt":
         p1.xloc += 1
 
+    blocktype = win.grid.gridmap[p1.xloc][p1.yloc].type
+    if blocktype != "w":
+        if blocktype == "r":
+            win.grid.gridmap[p1.xloc][p1.yloc].type = "w"
+            win.grid.set_obj()
+            p1.tail += 1
+
+        if blocktype == "t" or blocktype == "b":
+            win = window.Window(surface)
+            p1 = player.Player()
+
+    win.grid.draw_tail(p1.maketail())
     p1.drawplayer()
     distance = ((win.grid.objective[0] - p1.xloc)**2 + (win.grid.objective[1] - p1.yloc)**2)**0.5
     strt = ((win.grid.objective[0] - 40)**2 + (win.grid.objective[1] - 30)**2)**0.5
     p1.score = strt - distance
-    print(p1.score)
+
+    win.drawWindow()
     screen.blit(surface, (0, 0))
     screen.blit(p1.drawplayer(), (0, 0))
     pygame.display.flip()
